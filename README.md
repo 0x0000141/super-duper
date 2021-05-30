@@ -24,7 +24,7 @@
 python confuse_tools.py --help
 ```
 
-![image-20210530191719614](https://gitee.com/magisec/images/raw/main/image-20210530191719614.png)
+![image-20210530191719614](https://gitee.com/magisec/images/raw/master/image-20210530194450066.png)
 
 调用Confuse_gzip_xor对mimikatz进行混淆
 
