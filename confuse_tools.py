@@ -15,7 +15,7 @@ def main(src,dst,func):
     print("[*] xor key: %s" % key)
 
 if __name__ == '__main__':
-    parser = ArgumentParser(prog="confuse tools",description="payload混淆规避 \t > Author: 想念江南 Email：weedssec@gmail.com")
+    parser = ArgumentParser(prog="confuse tools",description="payload混淆规避 \t > Author: 想念烟雨 Email：weedssec@gmail.com")
     parser.add_argument("-s",'--src',help="需要混淆的文件",type=FileType('rb'),required=True)
     parser.add_argument('-d', '--dst', help='混淆完成输出的文件名', type=str, required=True)
     parser.add_argument('-f', '--func', help='需要使用混淆的func', type=str, required=True)
