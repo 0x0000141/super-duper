@@ -2,7 +2,7 @@ from uuid import UUID
 import binascii,gzip
 
 def Confuse_uuid(content):
-    print("[*] 正在调用基于byte的异或混淆函数")
+    print("[*] 正在调用基于uuid的混淆函数")
     offset = 0
     out = ""
     while (offset < len(content)):
