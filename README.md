@@ -35,6 +35,11 @@ python confuse_tools.py -s mimi.txt -d mimi.raw -f Confuse_gzip_xor
 ![image-20210530193157125](https://gitee.com/magisec/images/raw/master/image-20210530193157125.png)
 
 我们可以获取到随机生成的xor_key。这个key，请自行解密。
+## 2021.5.31更新
+支持自定义密钥，默认随机生成。
+```
+python confuse_tools.py -s mimi.txt -d mimi.raw -f Confuse_gzip_xor -k 70
+```
 
 ### vt查杀
 
