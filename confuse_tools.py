@@ -2,8 +2,9 @@ from core import functions as modules
 from argparse import ArgumentParser, FileType
 import random
 
-def main(src,dst,func):
-    key = random.randint(1,200)
+def main(src,dst,func,key):
+    if not key:
+        key = random.randint(1,200)
     content = src.read()
     out = getattr(modules,func)(content,key)
     if isinstance(out,str):
@@ -19,6 +20,7 @@ if __name__ == '__main__':
     parser.add_argument("-s",'--src',help="需要混淆的文件",type=FileType('rb'),required=True)
     parser.add_argument('-d', '--dst', help='混淆完成输出的文件名', type=str, required=True)
     parser.add_argument('-f', '--func', help='需要使用混淆的func', type=str, required=True)
+    parser.add_argument('-k', '--key', help='指定XOR异或混淆的Key 默认随机生成', type=int, required=False)
     args = parser.parse_args()
-    main(src=args.src,dst=args.dst,func=args.func)
+    main(src=args.src,dst=args.dst,func=args.func,key=args.key)
     print("[+] 混淆完成")
