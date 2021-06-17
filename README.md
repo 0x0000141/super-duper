@@ -27,7 +27,7 @@
 python3 run.py --help
 ```
 
-![image-20210617210956069](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210617210956069.png)
+![image-20210617210956069](https://gitee.com/magisec/images/raw/master/image-20210617210956069.png)
 
 
 
