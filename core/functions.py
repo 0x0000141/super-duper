@@ -1,8 +1,22 @@
+import base64
+import binascii
+import gzip
 from uuid import UUID
-import binascii,gzip
 
-def Confuse_uuid(content):
-    print("[*] 正在调用基于uuid的混淆函数")
+'''
+c_ud uuid编码
+c_gp gzip压缩
+c_b4 base64编码
+c_xs str异或
+c_xb byte异或
+c_r 反转
+c_h hex编码
+from_data 格式化payload
+'''
+
+
+def c_ud(content, *args):#uuid编码
+    print("[*] 正在使用uuid进行编码")
     offset = 0
     out = ""
     while (offset < len(content)):
@@ -16,41 +30,60 @@ def Confuse_uuid(content):
             uuid = UUID(bytes_le=byteString)
         offset += 16
         out += "{}".format(uuid)
-    print("[*] Encode:Confuse_uuid Payload length: %s "%len(out))
     return out
 
-def Confuse_xor_str(content,key):
-    print("[*] 正在调用基于str的XOR异或混淆函数")
+
+def c_gp(content, *args):#gzip压缩
+    print("[*] 正在使用gzip进行压缩")
+    out = gzip.compress(content)
+    return out
+
+
+def c_b4(content, *args):#base64
+    print("[*] 正在使用base64编码")
+    out = base64.b64encode(content)
+    return out
+
+
+def c_xs(content, key, *args):#str异或
+    print("[*] 正在使用XOR异或编码函数(str)")
+    print("[*] xor key: %s" % key)
     out = ""
     for i in content:
-        out +=  chr(ord(i) ^ key)
-    print("[*] Encode:Confuse_xor_str Payload length: %s "%len(out))
+        out += chr(ord(i) ^ key)
     return out
 
-def Confuse_xor_file(content,key):
-    print("[*] 正在调用基于byte的XOR异或混淆函数")
+
+def c_xb(content, key, *args):#byte异或
+    print("[*] 正在使用XOR异或编码函数(byte)")
+    print("[*] xor key: %s" % key)
     out = b""
     for i in content:
-        i =hex(i ^ key).replace("0x","")
-        if len(i) <2:
-            i = "0"+i
+        i = hex(i ^ key).replace("0x", "")
+        if len(i) < 2:
+            i = "0" + i
         out += bytes.fromhex(i)
-    print("[*] Encode:Confuse_xor_file Payload length: %s "%len(out))
     return out
 
-def Confuse_gzip_xor(content,key):
-    print("[*] 正在调用gzip > xor混淆函数 可用于shellcode mimikatz等工具 能有效压缩体积规避查杀")
-    data = gzip.compress(content)
-    out = Confuse_xor_file(data,key)
-    print("[*] Encode:Confuse_gzip_xor Payload length: %s "%len(out))
+
+def c_h(data, *args):#hex编码
+    print("[*] 正在使用hex编码函数")
+    out = binascii.b2a_hex(data)
     return out
 
-def Confuse_uuid_xor_gzip_hex(content,key):
-    print("[*] 正在调用uuid > xor > gzip > hex 混淆函数 适用于CS与MSF生成的SHELLCODE  规避一切查杀")
-    data = Confuse_uuid(content)
-    data = Confuse_xor_str(data,key)
-    data = gzip.compress(data.encode())
-    out = binascii.b2a_hex(data).decode()
-    print("[*] Encode:Confuse_uuid_xor_gzip_hex Payload length: %s "%len(out))
+
+def c_r(content, *args):#反转混淆
+    print("[*] 正在使用反转混淆函数")
+    out = content[::-1]
     return out
 
+
+def from_data(content, *args):#格式化payload
+    print("[*] 辅助函数：正在格式化文件中.......")
+    out = ""
+    for i in content:
+        i = hex(i).replace("0x", "")
+        if len(i) < 2:
+            i = "0" + i
+        out += "\\x" + i
+    return out
